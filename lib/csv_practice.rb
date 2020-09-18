@@ -59,6 +59,14 @@ def team_with_most_medals(total_medals)
 end
 
 
-# data = get_all_olympic_athletes('data/athlete_events.csv')
-# total_meds = total_medals_per_team(data)
-# p team_with_most_medals(total_meds)
+def athlete_height_in_inches(olympic_data)
+
+  converted_height_data = olympic_data.map do |athlete|
+    athlete['Height'] = athlete['Height'].to_f * 0.3937
+    athlete
+  end
+
+  return converted_height_data
+end
+
+

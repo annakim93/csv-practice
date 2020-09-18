@@ -152,4 +152,53 @@ describe "CSV and Enumerables Exercise" do
     end
   end
 
+  describe 'athlete_height_in_inches' do
+
+    it 'returns an array of Olympic athletes hashes with the correct information' do
+      # Arrange:
+      data = get_all_olympic_athletes(OLYMPIC_DATA_FILENAME)
+
+      # Act
+      data_with_height_in_inches = athlete_height_in_inches(data)
+
+      # Assert:
+      # Check that we get back an array
+      expect(data_with_height_in_inches).must_be_instance_of Array
+
+      data_with_height_in_inches.each do |athlete|
+        # Check that each element in the array is a hash
+        expect(athlete).must_be_instance_of Hash
+
+        # Check that each Olympian hash has the necessary keys
+        #   (defined in the constant REQUIRED_OLYMPIAN_FIELDS above)
+        expect(athlete.keys.length).must_equal REQUIRED_OLYMPIAN_FIELDS.length
+        REQUIRED_OLYMPIAN_FIELDS.each do |required_field|
+          expect(athlete.keys).must_include required_field
+        end
+      end
+    end
+
+    it 'has the proper number of rows' do
+      # Arrange
+      data = get_all_olympic_athletes(OLYMPIC_DATA_FILENAME)
+
+      # Act
+      data_with_height_in_inches = athlete_height_in_inches(data)
+
+      # Assert
+      expect(data_with_height_in_inches.length).must_equal 49503
+    end
+
+    it 'has the right height in inches in 1st and last row' do
+      # Arrange
+      data = get_all_olympic_athletes(OLYMPIC_DATA_FILENAME)
+
+      # Act
+      data_with_height_in_inches = athlete_height_in_inches(data)
+
+      # Assert
+      expect(data_with_height_in_inches.first['Height']).must_be_close_to 64.1731, 0.01
+      expect(data_with_height_in_inches.last['Height']).must_be_close_to 67.3227, 0.01
+    end
+  end
 end
