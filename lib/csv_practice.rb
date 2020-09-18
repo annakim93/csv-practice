@@ -44,6 +44,8 @@ end
 
 
 def get_all_gold_medalists(olympic_data)
+  gold_medalists = olympic_data.select { |athlete| athlete['Medal'] == 'Gold' }
+  return gold_medalists
 end
 
 # data = get_all_olympic_athletes('data/athlete_events.csv')
