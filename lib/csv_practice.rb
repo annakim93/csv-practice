@@ -48,5 +48,17 @@ def get_all_gold_medalists(olympic_data)
   return gold_medalists
 end
 
+
+
+def team_with_most_medals(total_medals)
+  most_medals_array = total_medals.sort_by { |team, medal_count| -medal_count }[0]
+
+  most_medals_hash = {'Team' => most_medals_array[0], 'Count' => most_medals_array[1]}
+
+  return most_medals_hash
+end
+
+
 # data = get_all_olympic_athletes('data/athlete_events.csv')
-# p total_medals_per_team(data)
+# total_meds = total_medals_per_team(data)
+# p team_with_most_medals(total_meds)

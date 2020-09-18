@@ -12,7 +12,7 @@ require_relative '../lib/csv_practice'
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
-REQUIRED_OLYMPIAN_FIELDS = %w[ID Name Height Team Year City Sport Event Medal]
+# REQUIRED_OLYMPIAN_FIELDS = %w[ID Name Height Team Year City Sport Event Medal]
 MEDAL_TOTALS_FILENAME = 'data/medal_totals.csv'
 OLYMPIC_DATA_FILENAME = 'data/athlete_events.csv'
 
@@ -118,6 +118,37 @@ describe "CSV and Enumerables Exercise" do
 
       # Assert
       expect(all_gold_medalists.length).must_equal 2344
+    end
+  end
+
+  describe 'team_with_most_medals' do
+
+    it 'returns a hash corresponding to the team (country) with the highest number of medals' do
+      # Arrange
+      data = get_all_olympic_athletes(OLYMPIC_DATA_FILENAME)
+      total_medals = total_medals_per_team(data)
+
+      # Act
+      team_with_most_medals = team_with_most_medals(total_medals)
+
+      # Assert
+      expect(team_with_most_medals).must_be_instance_of Hash
+
+      team_with_most_medals.has_key?('Team')
+      team_with_most_medals.has_key?('Count')
+    end
+
+    it 'has the correct team with most medals' do
+      # Arrange
+      data = get_all_olympic_athletes(OLYMPIC_DATA_FILENAME)
+      total_medals = total_medals_per_team(data)
+
+      # Act
+      team_with_most_medals = team_with_most_medals(total_medals)
+
+      # Assert
+      expect(team_with_most_medals['Team']).must_equal 'United States'
+      expect(team_with_most_medals['Count']).must_equal 944
     end
   end
 
